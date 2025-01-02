@@ -49,41 +49,46 @@
       </div>
     </div>
 
-    <!-- Sidebar Menu -->
     <div class="sidebar" id="sidebar">
       <ul>
         <li>
-          <a href="#">
+          <a href="#" data-section="profile">
             <i class="fas fa-user"></i>
             Perfil
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" data-section="catalog">
+            <i class="fas fa-box"></i>
+            Catálogo
+          </a>
+        </li>
+        <li>
+          <a href="#" data-section="orders">
             <i class="fas fa-box"></i>
             Mis Pedidos
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" data-section="payment">
             <i class="fas fa-credit-card"></i>
             Métodos de Pago
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" data-section="addresses">
             <i class="fas fa-map-marker-alt"></i>
             Direcciones
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" data-section="contact">
             <i class="fas fa-phone-alt"></i>
             Contáctanos
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" data-section="logout">
             <i class="fas fa-sign-out-alt"></i>
             Cerrar Sesión
           </a>
@@ -91,13 +96,38 @@
       </ul>
     </div>
 
+    <!-- Contenido dinámico -->
     <div class="content">
-      <div class="catalog-container">
-        <h1 class="catalog-title">Catálogo de Vestidos</h1>
-
+      <div class="section" id="catalog">
+        <h1>Catálogo de Vestidos</h1>
         <div class="product-grid" id="productGrid">
-          <!-- Los productos se cargarán aquí dinámicamente -->
+          <!-- Productos aquí -->
         </div>
+      </div>
+
+      <div class="section" id="profile" style="display: none">
+        <h1>Perfil del Usuario</h1>
+        <p>Aquí va la información del perfil.</p>
+      </div>
+
+      <div class="section" id="orders" style="display: none">
+        <h1>Mis Pedidos</h1>
+        <p>Aquí están tus pedidos.</p>
+      </div>
+
+      <div class="section" id="payment" style="display: none">
+        <h1>Métodos de Pago</h1>
+        <p>Agrega o edita tus métodos de pago.</p>
+      </div>
+
+      <div class="section" id="addresses" style="display: none">
+        <h1>Direcciones</h1>
+        <p>Administra tus direcciones aquí.</p>
+      </div>
+
+      <div class="section" id="contact" style="display: none">
+        <h1>Contáctanos</h1>
+        <p>Envíanos un mensaje o llama a nuestro soporte.</p>
       </div>
     </div>
 

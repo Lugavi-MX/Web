@@ -9,6 +9,30 @@ const cartItemsContainer = document.getElementById('cartItems');
 const totalPriceElement = document.getElementById('totalPrice');
 const checkoutButton = document.getElementById('checkoutButton');
 
+document.addEventListener('DOMContentLoaded', function () {
+  const links = document.querySelectorAll('.sidebar a');
+  const sections = document.querySelectorAll('.section');
+
+  // Función para mostrar una sección específica
+  function showSection(sectionId) {
+    sections.forEach((section) => {
+      section.style.display = section.id === sectionId ? 'block' : 'none';
+    });
+  }
+
+  // Manejar clics en los enlaces del sidebar
+  links.forEach((link) => {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      const sectionId = this.getAttribute('data-section');
+      showSection(sectionId);
+    });
+  });
+
+  // Mostrar el catálogo por defecto al cargar la página
+  showSection('catalog');
+});
+
 // Abrir y cerrar el menú lateral al hacer clic en el icono
 menuIcon.addEventListener('click', function () {
   sidebar.classList.toggle('active');
