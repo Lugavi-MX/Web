@@ -113,6 +113,7 @@ function addToCart(productId) {
 }
 
 // Función para actualizar el carrito y mostrarlo en el modal
+// Función para actualizar el carrito y mostrarlo en el modal
 function updateCart() {
   // Actualiza el contador de productos en el carrito
   cartCount.textContent = cart.length;
@@ -131,7 +132,7 @@ function updateCart() {
     const itemTotal = item.precio * item.cantidad;
     total += itemTotal;
 
-    cartItem.innerHTML = `
+    cartItem.innerHTML = ` 
             <img src="${item.imagen}" alt="${item.nombre}">
             <div class="cart-item-info">
                 <h3>${item.nombre}</h3>
@@ -148,7 +149,19 @@ function updateCart() {
 
   // Actualiza el total del carrito
   totalPriceElement.textContent = total.toFixed(2);
+
+  // Verificar si el carrito está vacío
+  if (cart.length === 0) {
+    // Deshabilitar el botón de checkout si el carrito está vacío
+    checkoutButton.disabled = true;
+    checkoutButton.style.backgroundColor = '#ccc'; // Cambio de color para indicar que está deshabilitado
+  } else {
+    // Habilitar el botón de checkout si el carrito tiene productos
+    checkoutButton.disabled = false;
+    checkoutButton.style.backgroundColor = '#28a745'; // Cambiar el color de nuevo
+  }
 }
+
 
 // Función para eliminar productos del carrito
 function removeFromCart(productId) {
@@ -177,7 +190,6 @@ cartItemsContainer.addEventListener('click', (e) => {
 
 // Función para realizar la compra
 checkoutButton.addEventListener('click', () => {
-  alert('Compra realizada con éxito');
   cart = []; // Vaciar el carrito después de la compra
   updateCart(); // Actualizar el carrito y contador
 });

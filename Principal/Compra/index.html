@@ -1,39 +1,235 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Proceso de Compra</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proceso de Compra</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Incluir Spin.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.2/spin.min.js"></script>
+  </head>
+  
 <body>
 
   <div class="stepper">
     <!-- Paso 1: Método de pago -->
-    <div class="step" id="step1">
-      <h2>Paso 1: Elegir Método de Pago</h2>
-      <select id="paymentMethod">
+<!-- Paso 1: Métodos de Pago -->
+<div class="step" id="step1">
+  <h2>Paso 1: Métodos de Pago</h2>
+  
+  <div class="container">
+    <!-- Método de Pago 1 -->
+    <div class="payment-card">
+      <h3>Tarjeta de Crédito</h3>
+      <p><strong>Banco:</strong> Bancomer</p>
+      <p><strong>Tarjeta:</strong> **** **** **** 9168</p>
+      <p><strong>Fecha de Vencimiento:</strong> 12/26</p>
+      <div class="card-actions">
+        <button onclick="editarMetodo(1)">Editar</button>
+      </div>
+    </div>
+    
+    <!-- Método de Pago 2 -->
+    <div class="payment-card">
+      <h3>Tarjeta de Crédito</h3>
+      <p><strong>Banco:</strong> Bancoppel</p>
+      <p><strong>Tarjeta:</strong> **** **** **** 0419</p>
+      <p><strong>Fecha de Vencimiento:</strong> 11/26</p>
+      <div class="card-actions">
+        <button onclick="editarMetodo(2)">Editar</button>
+      </div>
+    </div>
+    
+    <!-- Método de Pago 3 -->
+    <div class="payment-card">
+      <h3>PayPal</h3>
+      <p><strong>Correo:</strong> usuario@correo.com</p>
+      <div class="card-actions">
+        <button onclick="editarMetodo(3)">Editar</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Botón para agregar un nuevo método de pago -->
+  <div class="buttons-container">
+    <button id="addAddressButton" onclick="openPaymentModal()">Agregar Método de Pago Nuevo</button>
+  </div>
+
+  <!-- Botones de navegación -->
+  <div class="buttons-container">
+    <button onclick="nextStep(2)">Siguiente</button>
+  </div>
+</div>
+
+<!-- Modal para agregar un nuevo método de pago -->
+<div id="paymentModal" class="payment-modal" style="display: none;">
+  <div class="payment-modal-content">
+    <h2>Agregar Nuevo Método de Pago</h2>
+    <form id="paymentForm">
+      <label for="paymentType">Tipo de Método de Pago:</label>
+      <select id="paymentType" required>
         <option value="credit_card">Tarjeta de Crédito</option>
         <option value="paypal">PayPal</option>
-        <option value="bank_transfer">Transferencia Bancaria</option>
       </select>
-      <button onclick="nextStep(2)">Siguiente</button>
-    </div>
+
+      <div id="creditCardFields">
+        <label for="bank">Banco:</label>
+        <input type="text" id="bank" placeholder="Nombre del Banco" required>
+
+        <label for="cardNumber">Número de Tarjeta:</label>
+        <input type="text" id="cardNumber" placeholder="**** **** **** 1234" required>
+
+        <label for="expiryDate">Fecha de Vencimiento:</label>
+        <input type="month" id="expiryDate" required>
+      </div>
+
+      <div id="paypalFields" style="display: none;">
+        <label for="paypalEmail">Correo de PayPal:</label>
+        <input type="email" id="paypalEmail" placeholder="usuario@correo.com" required>
+      </div>
+
+      <button type="submit">Guardar</button>
+      <button type="button" onclick="closePaymentModal()">Cancelar</button>
+
+    </form>
+  </div>
+</div>
+
+    
 
     <!-- Paso 2: Dirección de Envío -->
-    <div class="step" id="step2" style="display: none;">
-      <h2>Paso 2: Elegir Dirección de Envío</h2>
-      <input type="text" id="address" placeholder="Dirección de envío">
-      <button onclick="nextStep(3)">Siguiente</button>
-    </div>
+<!-- Paso 2: Dirección de Envío -->
+<div class="step" id="step2">
+  <h2>Paso 2: Elegir Dirección de Envío</h2>
 
-    <!-- Paso 3: Resumen de la Compra -->
-    <div class="step" id="step3" style="display: none;">
-      <h2>Paso 3: Resumen de la Compra</h2>
-      <p>Productos: <span id="productList"></span></p>
-      <p>Método de Pago: <span id="paymentMethodSummary"></span></p>
-      <p>Dirección: <span id="addressSummary"></span></p>
-      <button>Finalizar Compra</button>
+  <!-- Direcciones Guardadas -->
+  <div class="container">
+    <h1>Direcciones Guardadas</h1>
+    <div class="address-list">
+      <!-- Dirección 1 -->
+      <div class="address-card">
+        <h2>Casa</h2>
+        <p><strong>Dirección:</strong> Calle De los pinos 302, Fraccionamiento fresnos</p>
+        <p><strong>Ciudad:</strong> Ciudad de Culiacan</p>
+        <p><strong>CP:</strong> 80010</p>
+        <div class="card-actions">
+          <button onclick="editarDireccion(1)">Editar</button>
+          <button onclick="eliminarDireccion(1)">Eliminar</button>
+        </div>
+      </div>
+      <!-- Dirección 2 -->
+      <div class="address-card">
+        <h2>Oficina</h2>
+        <p><strong>Dirección:</strong> Av. Reforma 456, Piso 10, Colonia Juárez</p>
+        <p><strong>Ciudad:</strong> Ciudad de México</p>
+        <p><strong>CP:</strong> 06700</p>
+        <div class="card-actions">
+          <button onclick="editarDireccion(2)">Editar</button>
+          <button onclick="eliminarDireccion(2)">Eliminar</button>
+        </div>
+      </div>
+      <!-- Dirección 3 -->
+      <div class="address-card">
+        <h2>Otra</h2>
+        <p><strong>Dirección:</strong> Calle Palma 789, Colonia Roma</p>
+        <p><strong>Ciudad:</strong> Ciudad de México</p>
+        <p><strong>CP:</strong> 04300</p>
+        <div class="card-actions">
+          <button onclick="editarDireccion(3)">Editar</button>
+          <button onclick="eliminarDireccion(3)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón para agregar una nueva dirección (arriba) -->
+  <div class="buttons-container">
+    <button id="addAddressButton" onclick="openAddressModal()">Agregar Dirección Nueva</button>
+  </div>
+
+  <!-- Botones de navegación (abajo) -->
+  <div class="buttons-container">
+    <button onclick="nextStep(1)">Regresar</button>
+    <button onclick="nextStep(3)">Siguiente</button>
+  </div>
+</div>
+
+
+<!-- Modal para agregar una nueva dirección -->
+<div id="addressModal" class="address-modal" style="display: none;">
+  <div class="address-modal-content">
+    <h2>Agregar Nueva Dirección</h2>
+    <form id="addressForm">
+      <label for="addressName">Nombre de la Dirección:</label>
+      <input type="text" id="addressName" placeholder="Casa, Oficina, etc." required>
+
+      <label for="streetAddress">Dirección:</label>
+      <input type="text" id="streetAddress" placeholder="Calle Falsa 123, Colonia Centro" required>
+
+      <label for="city">Ciudad:</label>
+      <input type="text" id="city" placeholder="Ciudad de México" required>
+
+      <label for="postalCode">Código Postal:</label>
+      <input type="text" id="postalCode" placeholder="01234" required>
+
+      <button type="submit">Guardar</button>
+      <button type="button" onclick="closeAddressModal()">Cancelar</button>
+    </form>
+  </div>
+</div>
+
+
+      <!-- Paso 3: Resumen de la Compra -->
+      <div class="step" id="step3">
+        <h2>Paso 3: Resumen de la Compra</h2>
+    
+        <!-- Resumen de los productos -->
+        <div class="summary-item">
+          <strong>Productos:</strong>
+          <div id="productList" class="product-list">
+            <p>Vestido floral de verano - $550</p>
+            <p>Vestido Elegante rojo - $1200</p>
+            <p>Vestido Largo Negro - $950</p>
+          </div>
+        </div>
+    
+        <!-- Resumen del método de pago -->
+        <div class="summary-item">
+          <strong>Método de Pago:</strong>
+          <span id="paymentMethodSummary">Tarjeta de Crédito: Banco Bancomer, Número: **** **** **** 9168</span>
+        </div>
+    
+        <!-- Resumen de la dirección -->
+        <div class="summary-item">
+          <strong>Dirección:</strong>
+          <span id="addressSummary">Annel Lara, Calle De los pinos 302, Ciudad Culiacan, CP 80010</span>
+        </div>
+    
+        <!-- Total de la compra -->
+        <div class="summary-item">
+          <strong>Total de la Compra:</strong>
+          $<span id="totalAmount">2700.00</span>
+        </div>
+    
+        <!-- Botones Finalizar Compra y Regresar -->
+        <div class="actions">
+          <button class="btnfn" onclick="finalizePurchase()">Finalizar Compra</button>
+          <button onclick="nextStep(2)">Regresar</button>
+        </div>
+      </div>
+      <button class="btnCancel" onclick="redirectToHome()">Cancelar compra</button>
+
+  </div>
+
+<!-- Loader -->
+<div id="loader" class="loader" style="display: none;"></div>
+
+
+  <!-- Modal de Compra Exitosa -->
+  <div id="successModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <h2>Compra realizada con éxito</h2>
+      <button onclick="redirectToHome()">Ir a la Página Principal</button>
     </div>
   </div>
 
