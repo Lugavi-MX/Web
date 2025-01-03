@@ -231,5 +231,5 @@ fetch('pedidos.json')
 
 
   document.getElementById("checkoutButton").addEventListener("click", function() {
-    window.location.href = "compra/";  // Redirige a la página de checkout
+    window.location.href = "Compra/";  // Redirige a la página de checkout
   });
