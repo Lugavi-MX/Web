@@ -181,3 +181,55 @@ checkoutButton.addEventListener('click', () => {
   cart = []; // Vaciar el carrito después de la compra
   updateCart(); // Actualizar el carrito y contador
 });
+
+
+function editProfile() {
+  alert('Redirigiendo a la página de edición de perfil...');
+  // Aquí puedes redirigir a una página de edición, por ejemplo:
+  // window.location.href = 'editar-perfil.html';
+}
+
+function logout() {
+  alert('Has cerrado sesión correctamente.');
+  // Aquí puedes realizar la lógica para cerrar sesión, por ejemplo:
+  // window.location.href = 'login.html';
+}
+
+fetch('pedidos.json')
+  .then((response) => response.json())
+  .then((data) => {
+    const ordersContainer = document.querySelector('.orders');
+    data.forEach((pedido) => {
+      const orderCard = document.createElement('div');
+      orderCard.classList.add('order-card');
+
+      // Crear estructura del pedido
+      orderCard.innerHTML = `
+        <h2>Pedido #${pedido.id.toString().padStart(3, '0')}</h2>
+        <p><strong>Fecha:</strong> ${pedido.fecha}</p>
+        <p><strong>Estado:</strong> ${pedido.estado}</p>
+        <p><strong>Total:</strong> $${pedido.total.toFixed(2)}</p>
+        <div class="order-items"></div>
+      `;
+
+      // Agregar los artículos al pedido
+      const orderItems = orderCard.querySelector('.order-items');
+      pedido.articulos.forEach((articulo) => {
+        const orderItem = document.createElement('div');
+        orderItem.classList.add('order-item');
+        orderItem.innerHTML = `
+          <img src="${articulo.imagen}" alt="${articulo.nombre}">
+          <p>${articulo.nombre} talla ${articulo.talla} - $${articulo.precio.toFixed(2)}</p>
+        `;
+        orderItems.appendChild(orderItem);
+      });
+
+      ordersContainer.appendChild(orderCard);
+    });
+  })
+  .catch((error) => console.error('Error al cargar los pedidos:', error));
+
+
+  document.getElementById("checkoutButton").addEventListener("click", function() {
+    window.location.href = "compra/";  // Redirige a la página de checkout
+  });

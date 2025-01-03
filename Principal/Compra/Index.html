@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proceso de Compra</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="stepper">
+    <!-- Paso 1: Método de pago -->
+    <div class="step" id="step1">
+      <h2>Paso 1: Elegir Método de Pago</h2>
+      <select id="paymentMethod">
+        <option value="credit_card">Tarjeta de Crédito</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank_transfer">Transferencia Bancaria</option>
+      </select>
+      <button onclick="nextStep(2)">Siguiente</button>
+    </div>
+
+    <!-- Paso 2: Dirección de Envío -->
+    <div class="step" id="step2" style="display: none;">
+      <h2>Paso 2: Elegir Dirección de Envío</h2>
+      <input type="text" id="address" placeholder="Dirección de envío">
+      <button onclick="nextStep(3)">Siguiente</button>
+    </div>
+
+    <!-- Paso 3: Resumen de la Compra -->
+    <div class="step" id="step3" style="display: none;">
+      <h2>Paso 3: Resumen de la Compra</h2>
+      <p>Productos: <span id="productList"></span></p>
+      <p>Método de Pago: <span id="paymentMethodSummary"></span></p>
+      <p>Dirección: <span id="addressSummary"></span></p>
+      <button>Finalizar Compra</button>
+    </div>
+  </div>
+
+  <script src="checkout.js"></script>
+</body>
+</html>
